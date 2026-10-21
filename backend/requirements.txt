@@ -1,0 +1,10 @@
+fastapi
+uvicorn[standard]
+python-dotenv
+sqlalchemy
+dnspython
+python-whois
+# Optional OSINT CLIs (not Python packages; TraceX runs without them):
+#   theHarvester  — PATH executable names: theHarvester, theharvester
+#   Sherlock      — PATH executable name: sherlock
+
