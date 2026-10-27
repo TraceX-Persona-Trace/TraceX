@@ -1,4 +1,4 @@
-from schemas.investigation import (
+from .investigation import (
     CreateInvestigationRequest,
     UpdateInvestigationRequest,
     InvestigationResponse,

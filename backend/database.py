@@ -26,7 +26,7 @@ def get_db():
 
 def init_db():
     # Import all models so Base knows about them before create_all
-    from models import investigation, evidence, correlation, graph  # noqa: F401
+    from backend.models import investigation, evidence, correlation, graph  # noqa: F401
     Base.metadata.create_all(bind=engine)
-    from migrations import run_migrations
+    from backend.migrations import run_migrations
     run_migrations()

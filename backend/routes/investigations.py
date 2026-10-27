@@ -1,10 +1,10 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from database import get_db
-from models.investigation import Investigation
-from schemas.investigation import (
+from backend.database import get_db
+from backend.models.investigation import Investigation
+from backend.schemas.investigation import (
     CreateInvestigationRequest,
     UpdateInvestigationRequest,
     InvestigationResponse,
@@ -70,7 +70,7 @@ def update_investigation(
             raise HTTPException(status_code=400, detail=f"Invalid mode. Allowed: {sorted(VALID_MODES)}")
         investigation.mode = payload.mode
 
-    investigation.updated_at = datetime.utcnow()
+    investigation.updated_at = datetime.now(timezone.utc)
     db.commit()
     db.refresh(investigation)
     return investigation

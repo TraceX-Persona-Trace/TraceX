@@ -9,8 +9,8 @@ Optional CLI providers (not Python dependencies; TraceX stays up if missing):
     sherlock     — allowlisted `sherlock` executable on PATH
 """
 
-from osint.registry import ProviderRegistry, build_default_registry, default_provider_names
-from osint.types import ProviderResult
+from .registry import ProviderRegistry, build_default_registry, default_provider_names
+from .types import ProviderResult
 
 __all__ = [
     "ProviderRegistry",

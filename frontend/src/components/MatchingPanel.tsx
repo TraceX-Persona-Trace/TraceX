@@ -3,6 +3,7 @@ import type { MatchResult, MatchHit } from '../api/types'
 import { runMatching } from '../api/matching'
 import LoadingSpinner from './LoadingSpinner'
 import ErrorMessage from './ErrorMessage'
+import { formatDate } from '../utils/formatDate'
 
 interface Props {
   investigationId: number
@@ -75,7 +76,7 @@ function ResultView({ result }: { result: MatchResult }) {
         &nbsp;·&nbsp;
         No matching evidence found in other investigations.
         &nbsp;·&nbsp;
-        Generated {new Date(result.generated_at).toLocaleString()}
+        Generated {formatDate(result.generated_at)}
       </div>
     )
   }
@@ -87,7 +88,7 @@ function ResultView({ result }: { result: MatchResult }) {
         &nbsp;·&nbsp;
         {result.query_attributes} attribute{result.query_attributes !== 1 ? 's' : ''} checked
         &nbsp;·&nbsp;
-        Generated {new Date(result.generated_at).toLocaleString()}
+        Generated {formatDate(result.generated_at)}
       </p>
       <ul style={styles.list}>
         {result.hits.map((hit, i) => (

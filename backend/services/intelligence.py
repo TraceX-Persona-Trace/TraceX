@@ -23,12 +23,12 @@ Traceability:
     Every IntelligenceSignal.investigation_ids refers to real Investigation.id values.
     No fabricated evidence is created.
 """
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List
 from sqlalchemy.orm import Session
 
-from models.evidence import Evidence
-from schemas.intelligence import (
+from backend.models.evidence import Evidence
+from backend.schemas.intelligence import (
     IntelligenceSignal,
     IntelligenceResult,
     SIGNAL_CROSS_INVESTIGATION_MATCH,
@@ -42,8 +42,8 @@ from schemas.intelligence import (
     SEVERITY_MEDIUM,
     SEVERITY_HIGH,
 )
-from services.matching import build_matches
-from schemas.matching import MatchHit
+from backend.services.matching import build_matches
+from backend.schemas.matching import MatchHit
 
 
 # Threshold above which an evidence item is considered "high confidence"
@@ -304,5 +304,5 @@ def build_intelligence(inv_id: int, db: Session) -> IntelligenceResult:
         total_evidence=evidence_count,
         total_signals=len(signals),
         provider="deterministic",
-        generated_at=datetime.utcnow(),
+        generated_at=datetime.now(timezone.utc),
     )

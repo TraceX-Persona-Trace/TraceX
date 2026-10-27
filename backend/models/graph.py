@@ -1,6 +1,6 @@
 from sqlalchemy import Column, Integer, String, Float, Text, ForeignKey
 from sqlalchemy.orm import relationship as orm_relationship
-from database import Base
+from backend.database import Base
 
 
 class GraphNode(Base):

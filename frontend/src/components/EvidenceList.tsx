@@ -3,6 +3,7 @@ import type { EvidenceResponse } from '../api/types'
 import { listEvidence, deleteEvidence } from '../api/evidence'
 import LoadingSpinner from './LoadingSpinner'
 import ErrorMessage from './ErrorMessage'
+import { formatDate } from '../utils/formatDate'
 
 interface Props {
   investigationId: number
@@ -94,7 +95,7 @@ export default function EvidenceList({ investigationId, onEdit, refreshKey }: Pr
 
                 <div style={styles.metaRow}>
                   <span style={styles.metaText}>
-                    Collected {new Date(ev.collected_at).toLocaleString()}
+                    Collected {formatDate(ev.collected_at)}
                   </span>
                 </div>
               </div>

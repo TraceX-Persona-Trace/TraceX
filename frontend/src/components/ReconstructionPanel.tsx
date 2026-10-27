@@ -3,6 +3,7 @@ import type { ReconstructionResult, ReconstructionAttribute } from '../api/types
 import { runReconstruction } from '../api/reconstruction'
 import LoadingSpinner from './LoadingSpinner'
 import ErrorMessage from './ErrorMessage'
+import { formatDate } from '../utils/formatDate'
 
 interface Props {
   investigationId: number
@@ -72,7 +73,7 @@ function ResultView({ result }: { result: ReconstructionResult }) {
       <p style={styles.summary}>
         {result.evidence_used} evidence item{result.evidence_used !== 1 ? 's' : ''} used
         &nbsp;·&nbsp;
-        Generated {new Date(result.generated_at).toLocaleString()}
+        Generated {formatDate(result.generated_at)}
       </p>
       <ul style={styles.list}>
         {result.attributes.map(attr => (
@@ -123,7 +124,7 @@ function AttributeRow({ attr }: { attr: ReconstructionAttribute }) {
 
         <div style={styles.metaRow}>
           <span style={styles.metaText}>
-            Collected {new Date(attr.collected_at).toLocaleString()}
+            Collected {formatDate(attr.collected_at)}
             &nbsp;·&nbsp;
             <span style={styles.evidenceRef}>evidence #{attr.evidence_id}</span>
           </span>

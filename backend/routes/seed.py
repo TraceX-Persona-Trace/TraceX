@@ -3,13 +3,13 @@ Seed route — creates a fixed demo investigation with pre-populated evidence it
 Idempotent: if the demo investigation already exists (matched by title), it returns
 the existing record without duplicating data.
 """
-from datetime import datetime
+from datetime import datetime, timezone
 from fastapi import APIRouter, Depends
 from sqlalchemy.orm import Session
-from database import get_db
-from models.investigation import Investigation
-from models.evidence import Evidence
-from schemas.investigation import InvestigationResponse
+from backend.database import get_db
+from backend.models.investigation import Investigation
+from backend.models.evidence import Evidence
+from backend.schemas.investigation import InvestigationResponse
 
 router = APIRouter(prefix="/api/seed", tags=["seed"])
 
@@ -90,7 +90,7 @@ def seed_demo(db: Session = Depends(get_db)):
     db.add(inv)
     db.flush()  # get inv.id before adding children
 
-    now = datetime.utcnow()
+    now = datetime.now(timezone.utc)
     for item in DEMO_EVIDENCE:
         ev = Evidence(
             investigation_id=inv.id,

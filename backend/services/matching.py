@@ -26,13 +26,13 @@ Traceability chain:
     MatchHit.matched_value            → exactly what was found
 """
 import re
-from datetime import datetime
+from datetime import datetime, timezone
 from typing import List, Optional, Tuple
 from sqlalchemy.orm import Session
 
-from models.evidence import Evidence
-from models.investigation import Investigation
-from schemas.matching import MatchHit, MatchResult
+from backend.models.evidence import Evidence
+from backend.models.investigation import Investigation
+from backend.schemas.matching import MatchHit, MatchResult
 
 
 # ---- normalisation helpers ----
@@ -119,7 +119,7 @@ def build_matches(source_inv_id: int, db: Session) -> MatchResult:
             query_attributes=0,
             hits=[],
             status="no_matchable_attributes",
-            generated_at=datetime.utcnow(),
+            generated_at=datetime.now(timezone.utc),
         )
 
     # Pre-fetch all investigations for title lookup (avoids N+1 queries)
@@ -169,5 +169,5 @@ def build_matches(source_inv_id: int, db: Session) -> MatchResult:
         query_attributes=len(query_attrs),
         hits=hits,
         status=status,
-        generated_at=datetime.utcnow(),
+        generated_at=datetime.now(timezone.utc),
     )
