@@ -10,11 +10,11 @@ Traceability chain:
             → Evidence.id (evidence_id)
                 → Investigation.id (investigation_id)
 """
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy.orm import Session
 
-from models.evidence import Evidence
-from schemas.reconstruction import ReconstructionAttribute, ReconstructionResult
+from backend.models.evidence import Evidence
+from backend.schemas.reconstruction import ReconstructionAttribute, ReconstructionResult
 
 
 def build_reconstruction(investigation_id: int, db: Session) -> ReconstructionResult:
@@ -62,5 +62,5 @@ def build_reconstruction(investigation_id: int, db: Session) -> ReconstructionRe
         status="ok" if attributes else "empty",
         evidence_used=len(attributes),
         attributes=attributes,
-        generated_at=datetime.utcnow(),
+        generated_at=datetime.now(timezone.utc),
     )

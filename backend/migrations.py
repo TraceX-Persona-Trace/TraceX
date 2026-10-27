@@ -6,7 +6,7 @@ Migrations are applied in order. SQLite does not support IF NOT EXISTS on ALTER 
 so each migration checks the current schema before executing.
 """
 from sqlalchemy import text
-from database import engine
+from backend.database import engine
 
 
 def _column_exists(conn, table: str, column: str) -> bool:

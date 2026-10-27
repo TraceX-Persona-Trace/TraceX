@@ -7,7 +7,7 @@ from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field
 
-from schemas.evidence import EvidenceResponse
+from .evidence import EvidenceResponse
 
 
 class OsintLookupRequest(BaseModel):

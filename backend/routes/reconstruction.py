@@ -9,10 +9,10 @@ investigation. No AI, no external search, no synthetic data.
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from database import get_db
-from models.investigation import Investigation
-from schemas.reconstruction import ReconstructionResult
-from services.reconstruction import build_reconstruction
+from backend.database import get_db
+from backend.models.investigation import Investigation
+from backend.schemas.reconstruction import ReconstructionResult
+from backend.services.reconstruction import build_reconstruction
 
 router = APIRouter(
     prefix="/api/investigations",

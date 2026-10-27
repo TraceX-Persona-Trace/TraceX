@@ -4,6 +4,7 @@ import { getInvestigation, updateInvestigation } from '../api/investigations'
 import { createEvidence, updateEvidence } from '../api/evidence'
 import LoadingSpinner from './LoadingSpinner'
 import ErrorMessage from './ErrorMessage'
+import { formatDate } from '../utils/formatDate'
 import InvestigationForm from './InvestigationForm'
 import EvidenceList from './EvidenceList'
 import EvidenceForm from './EvidenceForm'
@@ -105,11 +106,11 @@ export default function InvestigationDetail({ id, onBack }: Props) {
             </div>
             <div style={styles.metaRow}>
               <dt style={styles.metaDt}>Created</dt>
-              <dd style={styles.metaDd}>{new Date(inv.created_at).toLocaleString()}</dd>
+              <dd style={styles.metaDd}>{formatDate(inv.created_at)}</dd>
             </div>
             <div style={styles.metaRow}>
               <dt style={styles.metaDt}>Updated</dt>
-              <dd style={styles.metaDd}>{new Date(inv.updated_at).toLocaleString()}</dd>
+              <dd style={styles.metaDd}>{formatDate(inv.updated_at)}</dd>
             </div>
             <div style={styles.metaRow}>
               <dt style={styles.metaDt}>ID</dt>

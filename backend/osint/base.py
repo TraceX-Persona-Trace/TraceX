@@ -4,14 +4,14 @@ from __future__ import annotations
 from abc import ABC, abstractmethod
 from typing import FrozenSet, Iterable
 
-from osint.types import (
+from .types import (
     STATUS_ERROR,
     STATUS_INVALID_TARGET,
     STATUS_PROVIDER_UNAVAILABLE,
     STATUS_UNSUPPORTED_TARGET,
     ProviderResult,
 )
-from osint.validation import InvalidTargetError, validation_error_message
+from .validation import InvalidTargetError, validation_error_message
 
 
 class OsintProvider(ABC):

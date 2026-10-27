@@ -9,10 +9,10 @@ real stored normalised_value fields. No AI, no external search.
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.orm import Session
 
-from database import get_db
-from models.investigation import Investigation
-from schemas.matching import MatchResult
-from services.matching import build_matches
+from backend.database import get_db
+from backend.models.investigation import Investigation
+from backend.schemas.matching import MatchResult
+from backend.services.matching import build_matches
 
 router = APIRouter(
     prefix="/api/investigations",

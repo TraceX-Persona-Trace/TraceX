@@ -3,12 +3,12 @@ from __future__ import annotations
 
 from typing import Dict, List, Optional, Type
 
-from osint.base import OsintProvider
-from osint.providers.dns import DnsProvider
-from osint.providers.harvester import TheHarvesterProvider
-from osint.providers.sherlock import SherlockProvider
-from osint.providers.whois import WhoisProvider
-from osint.types import ProviderInfo
+from .base import OsintProvider
+from .providers.dns import DnsProvider
+from .providers.harvester import TheHarvesterProvider
+from .providers.sherlock import SherlockProvider
+from .providers.whois import WhoisProvider
+from .types import ProviderInfo
 
 _DEFAULT_FACTORIES: Dict[str, Type[OsintProvider]] = {
     "dns": DnsProvider,

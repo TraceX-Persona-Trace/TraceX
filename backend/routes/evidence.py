@@ -1,10 +1,10 @@
 from datetime import datetime
 from fastapi import APIRouter, Depends, HTTPException, status
 from sqlalchemy.orm import Session
-from database import get_db
-from models.investigation import Investigation
-from models.evidence import Evidence
-from schemas.evidence import (
+from backend.database import get_db
+from backend.models.investigation import Investigation
+from backend.models.evidence import Evidence
+from backend.schemas.evidence import (
     CreateEvidenceRequest,
     UpdateEvidenceRequest,
     EvidenceResponse,

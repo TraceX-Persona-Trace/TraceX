@@ -3,6 +3,8 @@ import type { IntelligenceResult, IntelligenceSignal } from '../api/types'
 import { getIntelligence } from '../api/intelligence'
 import LoadingSpinner from './LoadingSpinner'
 import ErrorMessage from './ErrorMessage'
+import { formatDate } from '../utils/formatDate'
+
 
 interface Props {
   investigationId: number
@@ -72,7 +74,7 @@ function ResultView({ result }: { result: IntelligenceResult }) {
           &nbsp;·&nbsp;
           <span style={styles.provider}>{result.provider}</span>
           &nbsp;·&nbsp;
-          {new Date(result.generated_at).toLocaleString()}
+          {formatDate(result.generated_at)}
         </span>
       </div>
 

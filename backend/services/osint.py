@@ -13,22 +13,22 @@ from urllib.parse import urlparse
 
 from sqlalchemy.orm import Session
 
-from models.evidence import Evidence
-from models.investigation import Investigation
-from osint.registry import ProviderRegistry, build_default_registry
-from osint.types import (
+from backend.models.evidence import Evidence
+from backend.models.investigation import Investigation
+from backend.osint.registry import ProviderRegistry, build_default_registry
+from backend.osint.types import (
     STATUS_OK,
     TARGET_TYPE_DOMAIN,
     TARGET_TYPE_USERNAME,
     OsintFinding,
     ProviderResult,
 )
-from osint.validation import (
+from backend.osint.validation import (
     InvalidTargetError,
     normalize_public_domain,
     normalize_public_username,
 )
-from schemas.evidence import VALID_EVIDENCE_TYPES
+from backend.schemas.evidence import VALID_EVIDENCE_TYPES
 
 # Only STATUS_OK findings are ingested. Other statuses stay in the API payload.
 INGESTIBLE_STATUSES = frozenset({STATUS_OK})

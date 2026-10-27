@@ -1,7 +1,7 @@
-from datetime import datetime
+from datetime import datetime, timezone
 from sqlalchemy import Column, Integer, String, Text, Float, DateTime, ForeignKey
 from sqlalchemy.orm import relationship
-from database import Base
+from backend.database import Base
 
 
 class Correlation(Base):
@@ -13,6 +13,6 @@ class Correlation(Base):
     correlation_type = Column(String, nullable=False)
     description = Column(Text, nullable=False)
     confidence = Column(Float, nullable=False, default=0.0)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    created_at = Column(DateTime, default=lambda: datetime.now(timezone.utc), nullable=False)
 
     investigation = relationship("Investigation", back_populates="correlations")

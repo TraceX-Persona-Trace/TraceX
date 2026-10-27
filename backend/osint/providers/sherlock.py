@@ -12,9 +12,9 @@ import subprocess
 from typing import Any, List, Optional
 from urllib.parse import urlparse
 
-from osint.base import OsintProvider, require_target_type
-from osint.cli import RunFn, WhichFn, decode_cli_output, resolve_allowlisted_executable, run_allowlisted
-from osint.types import (
+from ..base import OsintProvider, require_target_type
+from ..cli import RunFn, WhichFn, decode_cli_output, resolve_allowlisted_executable, run_allowlisted
+from ..types import (
     STATUS_EMPTY,
     STATUS_LOOKUP_FAILED,
     STATUS_MALFORMED_OUTPUT,
@@ -25,10 +25,10 @@ from osint.types import (
     OsintFinding,
     ProviderResult,
 )
-from osint.validation import normalize_public_username
+from ..validation import normalize_public_username
 
 ALLOWED_EXECUTABLES = ("sherlock",)
-DEFAULT_TIMEOUT = 45.0
+DEFAULT_TIMEOUT = 120.0
 
 _POSITIVE_STATUSES = frozenset({"claimed", "available", "found"})
 _NEGATIVE_STATUSES = frozenset(
@@ -63,8 +63,23 @@ class SherlockProvider(OsintProvider):
         return self._resolved_executable() is not None
 
     def _resolved_executable(self) -> Optional[str]:
+        # First, use any explicitly supplied path
         if self._executable_path:
             return self._executable_path
+        # If a custom which_fn is provided (e.g., for testing), rely on it without venv shortcuts
+        import shutil
+        if self._which_fn is not shutil.which:
+            return resolve_allowlisted_executable(ALLOWED_EXECUTABLES, which_fn=self._which_fn)
+        # Default behavior: try to locate the executable in the active virtual environment's Scripts directory
+        try:
+            import os, sys
+            venv_dir = os.path.dirname(sys.executable)
+            candidate = os.path.join(venv_dir, "sherlock.exe")
+            if os.path.isfile(candidate):
+                return candidate
+        except Exception:
+            pass
+        # Fall back to a standard PATH lookup for allowed executables
         return resolve_allowlisted_executable(ALLOWED_EXECUTABLES, which_fn=self._which_fn)
 
     def validate_target(self, target: str, target_type: str) -> str:
@@ -84,7 +99,7 @@ class SherlockProvider(OsintProvider):
             )
 
         # Fixed flags only. Username is a validated positional argument.
-        args = ["--print-found", "--timeout", "10", "--no-color", target]
+        args = ["--print-found", "--timeout", "30", "--no-color", target]
         try:
             completed = run_allowlisted(
                 executable,

@@ -7,8 +7,8 @@ from typing import Any, Callable, List, Optional
 import whois
 from whois.exceptions import WhoisError
 
-from osint.base import OsintProvider, require_target_type
-from osint.types import (
+from ..base import OsintProvider, require_target_type
+from ..types import (
     STATUS_EMPTY,
     STATUS_LOOKUP_FAILED,
     STATUS_OK,
@@ -17,7 +17,7 @@ from osint.types import (
     OsintFinding,
     ProviderResult,
 )
-from osint.validation import normalize_public_domain
+from ..validation import normalize_public_domain
 
 DEFAULT_TIMEOUT = 10
 
